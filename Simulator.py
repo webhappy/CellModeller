@@ -36,7 +36,7 @@ visualised.
         self.integ = None
         self.renderers = []
         self.stepNum = 0
-        self.savePickle =True
+        self.savePickle =False
         self.pickleSteps = pickleSteps
 
         self.lineage = {}
@@ -80,7 +80,8 @@ visualised.
 
         self.phys.setRegulator(reg)
 
-        self.reg.setBiophysics(phys)
+        if self.reg:
+            self.reg.setBiophysics(phys)
 
         if integ:
             self.integ = integ
@@ -99,11 +100,6 @@ visualised.
         if sys.platform == 'darwin':
             self.CLContext = cl.Context(devices=[platform.get_devices()[0]])
         else:
-            #try:
-            #    self.CLContext
-            #    = cl.Context(properties=[(cl.context_properties.PLATFORM,
-            #    platform)])
-            #except:
             self.CLContext = cl.Context(properties=[(cl.context_properties.PLATFORM, platform)],
                                           devices=[platform.get_devices()[0]])
         self.CLQueue = cl.CommandQueue(self.CLContext)
@@ -180,14 +176,16 @@ visualised.
         self.cellStates[cid] = cs
         if self.integ:
             self.integ.addCell(cs)
-        self.reg.addCell(cs)
+        if self.reg:
+            self.reg.addCell(cs)
         if self.sig:
             self.sig.addCell(cs)
         self.phys.addCell(cs, **kwargs)
 
 
     def step(self):
-        self.reg.step(self.dt)
+        if self.reg:
+            self.reg.step(self.dt)
         if self.sig:
             self.sig.step(self.dt)
         self.phys.step(self.dt)

@@ -115,7 +115,7 @@ class PyGLWidget(QtOpenGL.QGLWidget):
 	gluPickMatrix(x, viewport[3]-y, self.pickSize, self.pickSize, viewport);
         gluPerspective( self.fovy_, float(self.width()) / float(self.height()),
                         self.near_, self.far_ )
-    
+
     def set_center(self, _cog):
         self.center_ = _cog
         self.view_all()
@@ -142,7 +142,7 @@ class PyGLWidget(QtOpenGL.QGLWidget):
         glMatrixMode(GL_MODELVIEW)
         glLoadMatrixd(self.modelview_matrix_)
         self.updateGL()
-   
+
     def translate(self, _trans):
         # Translate the object by _trans
         # Update modelview_matrix_
@@ -221,7 +221,7 @@ class PyGLWidget(QtOpenGL.QGLWidget):
 
     def wheelEvent(self, _event):
         # Use the mouse wheel to zoom in/out
-        
+
         d = - float(_event.delta()) / 200.0 * self.radius_
         self.translate([0.0, 0.0, d])
         self.updateGL()
@@ -230,11 +230,11 @@ class PyGLWidget(QtOpenGL.QGLWidget):
     def selectName(self, point):
 	glSelectBuffer(50) # allocate a selection buffer of SIZE elements
 	glRenderMode(GL_SELECT)
-	
+
 	glMatrixMode( GL_PROJECTION )
 	glPushMatrix()
 	self.set_pick_projection( point.x(), point.y(), self.near_, self.far_, self.fovy_ );
-	
+
 	self.paintGL()
 	self.drawWithNames()
 
@@ -248,7 +248,7 @@ class PyGLWidget(QtOpenGL.QGLWidget):
 	glMatrixMode( GL_PROJECTION )
 	glPopMatrix()
 	return selectedName
-	    
+
     def mousePressEvent(self, _event):
         self.last_point_2D_ = _event.pos()
         self.last_point_ok_, self.last_point_3D_ = self.map_to_sphere(self.last_point_2D_)
@@ -262,7 +262,7 @@ class PyGLWidget(QtOpenGL.QGLWidget):
         if ((newPoint2D.x() < 0) or (newPoint2D.x() > self.width()) or
             (newPoint2D.y() < 0) or (newPoint2D.y() > self.height())):
             return
-        
+
         # Left button: rotate around center_
         # Middle button: translate object
         # Left & middle button: zoom in/out
@@ -304,13 +304,13 @@ class PyGLWidget(QtOpenGL.QGLWidget):
                              -2.0 * dy / h * up / n * z,
                              0.0] )
 
-    
+
         # rotate
         elif (_event.buttons() & QtCore.Qt.LeftButton and (not _event.modifiers() & QtCore.Qt.ShiftModifier)):
             if (not self.isInRotation_):
                 self.isInRotation_ = True
                 self.rotationBeginEvent.emit()
-       
+
             axis = [0.0, 0.0, 0.0]
             angle = 0.0
 
@@ -332,7 +332,7 @@ class PyGLWidget(QtOpenGL.QGLWidget):
 
         def mouseReleaseEvent(self, _event):
             if (isInRotation_):
-                isInRotation_ = false
+                isInRotation_ = False
                 self.rotationEndEvent.emit()
             last_point_ok_ = False
 

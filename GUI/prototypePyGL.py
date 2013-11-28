@@ -22,8 +22,9 @@ from CellModeller import Simulator
 from CellModeller.GUI.PyGLCMViewer import PyGLCMViewer, RenderInfo
 
 import sys
+from CellModeller.GUI.PyGLWidget import PyGLWidget
 
-
+#PyGLWidget.paintGL()
 qapp = QApplication([])
 ui = uic.loadUi('CellModeller/GUI/PyGLViewer.ui')
 

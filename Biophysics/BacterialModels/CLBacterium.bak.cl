@@ -643,8 +643,6 @@ __kernel void collect_tos(const int max_cells,
   // zero out unused tos
   // this probably isn't necessary
   for (int u = k; u < max_contacts; u++) {
-	  if(  ( (i*max_contacts) + u) >= sizeof(cell_tos) )
-			  break;
     cell_tos[i*max_contacts+u] = 0;
   }
 

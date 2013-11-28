@@ -17,7 +17,7 @@ class PyGLCMViewer(PyGLWidget):
 
     selectedCell = pyqtSignal(str)#CellState, name='selectedCell')
     selectedName = -1
-    dt = 0.25
+    dt = 0.25 
 
     def __init__(self, parent = None):
         PyGLWidget.__init__(self,parent)
@@ -106,7 +106,7 @@ class PyGLCMViewer(PyGLWidget):
         self.updateSelectedCell()
 
     def paintGL(self):
-        #PyGLWidget.paintGL()
+        PyGLWidget.paintGL(self)
         glClearColor(0.5,0.5,0.5,0.0)
         glClear(GL_COLOR_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
@@ -132,7 +132,7 @@ class PyGLCMViewer(PyGLWidget):
         glPopMatrix()
 
 
-
+        
 class RenderInfo:
     def __init__(self):
         self.renderers = []
